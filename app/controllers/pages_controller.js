@@ -13,12 +13,13 @@ PagesController.main = function() {
 
 
 // executes `pwd`
-child = exec("wp core download", function (error, stdout, stderr) {
-  sys.print('stdout: ' + stdout);
-  sys.print('stderr: ' + stderr);
-  if (error !== null) {
-    console.log('exec error: ' + error);
-  }
+exec('./shell.sh /media/external/',
+  function (error, stdout, stderr) {
+    console.log('stdout: ' + stdout);
+    console.log('stderr: ' + stderr);
+    if (error !== null) {
+      console.log('exec error: ' + error);
+    }
 });
 
 
