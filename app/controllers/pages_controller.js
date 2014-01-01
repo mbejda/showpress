@@ -11,7 +11,7 @@ this.title = '';
 var unix  = Math.round(new Date().getTime() / 1000);
 async.parallel([
     function(callback) {
-        exec("./shell.sh "+unix, function(error, f1_length) {
+        exec("./shell.sh '"+unix+"s'", function(error, f1_length) {
             if (error)
                 return callback(error);
             callback(null, f1_length);
