@@ -1,7 +1,7 @@
 #!/bin/bash
-
 cd ./press
-pwd
+mkdir $1
+cd $1
 mysql -u root -e "create database $1"
 wp core download
 wp core config --dbname=$1 --dbuser=root
