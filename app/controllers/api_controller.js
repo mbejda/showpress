@@ -8,8 +8,7 @@ var async = require('async');
 
 ApiController.create = function() {
     var self = this;
-    self.res.send({type:'success'});
-    return;
+
 
 this.title = '';
 var unix  = Math.round(new Date().getTime() / 1000);
@@ -41,13 +40,10 @@ function(error, results) {
 
 
 console.log(results)
+
+    self.res.send({type:'success',press:unix});
+return;
 });
-
-
-
-
-
-  this.render();
 
 }
 
