@@ -7,4 +7,6 @@
 // information.
 module.exports = function routes() {
   this.root('pages#main');
+ this.match('api/create', 'api#create',{ via: ['POST','GET'] });
+
 }
