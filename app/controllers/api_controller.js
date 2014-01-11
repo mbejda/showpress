@@ -4,16 +4,13 @@ var locomotive = require('locomotive')
 var ApiController = new Controller();
 var sys = require('sys')
 var exec = require('child_process').exec;
-var async = require('async');
 var webshot = require('webshot');
-var crawl = require('crawl');
 var easyimg = require('easyimage');
 ///apt-get install imagemagick
 var needle = require('needle');
 var Account = require('../models/account');
 var Img = require('../models/images');
 
-var poster = require('poster');
 var fs = require('fs');
 var FB = require('fb');
 
@@ -65,12 +62,19 @@ Account.findOne().exec(function(e,r){
 
 var page = r.page
 try{
-FB.api('/'+page.id+'/feed','post',{link:url,access_token:page.token},function(r){
-
-     self.res.send({type:'success',image:regularOutput});
 
 
-})
+var imgURL="http://dubstepfood.com/"+regularOutput;//change with your external photo url
+FB.api('/'+page.id+'/photos', 'post', {
+    url:imgURL,
+access_token:page.token
+}, function(response){
+
+   self.res.send({type:'success',image:regularOutput});
+
+return;
+
+});
 }catch(e)
 {
          self.res.send({type:'success',response:regularOutput});
