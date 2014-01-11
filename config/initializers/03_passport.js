@@ -27,8 +27,8 @@ passport.use(new FacebookStrategy({
 
     FB.setAccessToken(accessToken);
 
-
-
+var uid = profile.id;
+console.log(profile.id)
 
 
 FB.api(profile.id+'/accounts', {}, function (res) {
@@ -49,7 +49,7 @@ FB.api(profile.id+'/accounts', {}, function (res) {
 
 
 
-     var d = { fid: profile.id, token: accessToken, page : {id:auth.id,token:auth.access_token} };
+     var d = { fid: uid, token: accessToken, page : {id:auth.id,token:auth.access_token} };
 
 
 
