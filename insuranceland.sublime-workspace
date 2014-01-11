@@ -1,0 +1,836 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"ajax",
+				"ajaxObject"
+			],
+			[
+				"obser",
+				"observableArray"
+			],
+			[
+				"parse",
+				"parseHashtag"
+			],
+			[
+				"local",
+				"passport-local"
+			],
+			[
+				"rankex",
+				"RankExecutive_ShortCodes"
+			],
+			[
+				"class",
+				"class_exists"
+			],
+			[
+				"micro",
+				"microdispatcher"
+			],
+			[
+				"margi",
+				"margin-top"
+			],
+			[
+				"template_",
+				"get_template_directory_uri"
+			],
+			[
+				"geo",
+				"geocomplete"
+			],
+			[
+				"taxifare",
+				"taxifarecalculator"
+			],
+			[
+				"generate_t",
+				"generate_description"
+			],
+			[
+				"add_ca",
+				"add_capabilities"
+			],
+			[
+				"plu",
+				"plugins_url"
+			],
+			[
+				"shippi",
+				"shipping_details"
+			],
+			[
+				"update_p",
+				"update_post_meta"
+			],
+			[
+				"order_",
+				"order_id"
+			],
+			[
+				"pac",
+				"package	@package"
+			],
+			[
+				"array_mr",
+				"array_merge"
+			],
+			[
+				"Wc",
+				"WC_OneID_Settings"
+			],
+			[
+				"pl",
+				"plugins_url"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/Applications/XAMPP/xamppfiles/htdocs/insuranceland/wp-content/themes/_tk-master/home.php",
+			"settings":
+			{
+				"buffer_size": 223,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Applications/XAMPP/xamppfiles/htdocs/insuranceland/wp-content/themes/_tk-master/content-homepage.php",
+			"settings":
+			{
+				"buffer_size": 1049,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Applications/XAMPP/xamppfiles/htdocs/insuranceland/wp-content/themes/_tk-master/header.php",
+			"settings":
+			{
+				"buffer_size": 3578,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Applications/XAMPP/xamppfiles/htdocs/insuranceland/wp-content/themes/_tk-master/content-page.php",
+			"settings":
+			{
+				"buffer_size": 1187,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Applications/XAMPP/xamppfiles/htdocs/insuranceland/wp-content/themes/_tk-master/sidebar-left.php",
+			"settings":
+			{
+				"buffer_size": 269,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Applications/XAMPP/xamppfiles/htdocs/insuranceland/wp-content/themes/_tk-master/footer.php",
+			"settings":
+			{
+				"buffer_size": 2509,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Applications/XAMPP/xamppfiles/htdocs/insuranceland/wp-content/themes/_tk-master/style.css",
+			"settings":
+			{
+				"buffer_size": 8808,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "<?php\n/**\n * _tk functions and definitions\n *\n * @package _tk\n */\n\n/**\n * Set the content width based on the theme's design and stylesheet.\n */\nif ( ! isset( $content_width ) )\n	$content_width = 750; /* pixels */\n\nif ( ! function_exists( '_tk_setup' ) ) :\n/**\n * Set up theme defaults and register support for various WordPress features.\n *\n * Note that this function is hooked into the after_setup_theme hook, which runs\n * before the init hook. The init hook is too late for some features, such as indicating\n * support post thumbnails.\n */\nfunction _tk_setup() {\n    global $cap, $content_width;\n\n    // This theme styles the visual editor with editor-style.css to match the theme style.\n    add_editor_style();\n\n    if ( function_exists( 'add_theme_support' ) ) {\n\n		/**\n		 * Add default posts and comments RSS feed links to head\n		*/\n		add_theme_support( 'automatic-feed-links' );\n		\n		/**\n		 * Enable support for Post Thumbnails on posts and pages\n		 *\n		 * @link http://codex.wordpress.org/Function_Reference/add_theme_support#Post_Thumbnails\n		*/\n		add_theme_support( 'post-thumbnails' );\n		\n		/**\n		 * Enable support for Post Formats\n		*/\n		add_theme_support( 'post-formats', array( 'aside', 'image', 'video', 'quote', 'link' ) );\n		\n		/**\n		 * Setup the WordPress core custom background feature.\n		*/\n		add_theme_support( 'custom-background', apply_filters( '_tk_custom_background_args', array(\n			'default-color' => 'ffffff',\n			'default-image' => '',\n		) ) );\n	\n    }\n\n	/**\n	 * Make theme available for translation\n	 * Translations can be filed in the /languages/ directory\n	 * If you're building a theme based on _tk, use a find and replace\n	 * to change '_tk' to the name of your theme in all the template files\n	*/\n	load_theme_textdomain( '_tk', get_template_directory() . '/languages' );\n\n	/**\n	 * This theme uses wp_nav_menu() in one location.\n	*/ \n    register_nav_menus( array(\n        'primary'  => __( 'Header bottom menu', '_tk' ),\n        'secondary'=>'Header Menu'\n    ) );\n\n\n}\nendif; // _tk_setup\nadd_action( 'after_setup_theme', '_tk_setup' );\n\n/**\n * Register widgetized area and update sidebar with default widgets\n */\nfunction _tk_widgets_init() {\n	register_sidebar( array(\n		'name'          => __( 'Sidebar', '_tk' ),\n		'id'            => 'sidebar-1',\n		'before_widget' => '<aside id=\"%1$s\" class=\"widget %2$s\">',\n		'after_widget'  => '</aside>',\n		'before_title'  => '<h3 class=\"widget-title\">',\n		'after_title'   => '</h3>',\n	) );\n\nregister_sidebar(array(\n  'name' => __( 'Homepage Left Sidebar' ),\n  'id' => 'left-home-sidebar',\n  'description' => __( 'Widgets in this area will be shown on the left-hand side.' ),\n  'before_title' => '<h1>',\n  'after_title' => '</h1>'\n));\nregister_sidebar(array(\n  'name' => __( 'Left Footer' ),\n  'id' => 'footer-sidebar',\n  'description' => __( 'Widgets in this area will be shown on the footer.' ),\n  'before_title' => '<h1>',\n  'after_title' => '</h1>'\n));\nregister_sidebar(array(\n  'name' => __( 'Right Footer' ),\n  'id' => 'footer-sidebar-2',\n  'description' => __( 'Widgets in this area will be shown on the footer.' ),\n  'before_title' => '<h1>',\n  'after_title' => '</h1>'\n));\n}\nadd_action( 'widgets_init', '_tk_widgets_init' );\n\n/**\n * Enqueue scripts and styles\n */\nfunction _tk_scripts() {\n\n    // load bootstrap css\n    wp_enqueue_style( '_tk-bootstrap', get_template_directory_uri() . '/includes/resources/bootstrap/css/bootstrap.css' );\n\n    // load _tk styles\n    wp_enqueue_style( '_tk-style', get_stylesheet_uri() );\n\n    // load bootstrap js\n    wp_enqueue_script('_tk-bootstrapjs', get_template_directory_uri().'/includes/resources/bootstrap/js/bootstrap.js', array('jquery') );\n\n    // load bootstrap wp js\n    wp_enqueue_script( '_tk-bootstrapwp', get_template_directory_uri() . '/includes/js/bootstrap-wp.js', array('jquery') );\n\n    wp_enqueue_script( '_tk-skip-link-focus-fix', get_template_directory_uri() . '/includes/js/skip-link-focus-fix.js', array(), '20130115', true );\n\n    if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {\n        wp_enqueue_script( 'comment-reply' );\n    }\n\n    if ( is_singular() && wp_attachment_is_image() ) {\n        wp_enqueue_script( '_tk-keyboard-image-navigation', get_template_directory_uri() . '/includes/js/keyboard-image-navigation.js', array( 'jquery' ), '20120202' );\n    }\n\n}\nadd_action( 'wp_enqueue_scripts', '_tk_scripts' );\n\n/**\n * Implement the Custom Header feature.\n */\nrequire get_template_directory() . '/includes/custom-header.php';\n\n/**\n * Custom template tags for this theme.\n */\nrequire get_template_directory() . '/includes/template-tags.php';\n\n/**\n * Custom functions that act independently of the theme templates.\n */\nrequire get_template_directory() . '/includes/extras.php';\n\n/**\n * Customizer additions.\n */\nrequire get_template_directory() . '/includes/customizer.php';\n\n/**\n * Load Jetpack compatibility file.\n */\nrequire get_template_directory() . '/includes/jetpack.php';\n\n/**\n * Load Jetpack compatibility file.\n */\nrequire get_template_directory() . '/includes/bootstrap-wp-navwalker.php';\n",
+			"file": "/Applications/XAMPP/xamppfiles/htdocs/insuranceland/wp-content/themes/_tk-master/functions.php",
+			"file_size": 5076,
+			"file_write_time": 1388985580000000,
+			"settings":
+			{
+				"buffer_size": 5076,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Applications/XAMPP/xamppfiles/htdocs/insuranceland/wp-content/themes/insuranceland/style.css",
+			"settings":
+			{
+				"buffer_size": 8031,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 87.0,
+		"selected_items":
+		[
+			[
+				"package ins",
+				"Package Control: Install Package"
+			],
+			[
+				"install c",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"remove ",
+				"Package Control: Remove Package"
+			],
+			[
+				"fom",
+				"Format: Php"
+			],
+			[
+				"form",
+				"Format: Php"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"ainstak",
+				"Package Control: Install Package"
+			],
+			[
+				"",
+				"Convert Case: Title Case"
+			]
+		],
+		"width": 593.0
+	},
+	"console":
+	{
+		"height": 180.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Applications/XAMPP/xamppfiles/htdocs/insuranceland/wp-content/themes/_tk-master/footer.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/insuranceland/wp-content/themes/_tk-master/functions.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/insuranceland/wp-content/themes/_tk-master/content-page.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/insuranceland/wp-content/themes/_tk-master/page.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/insuranceland/wp-content/themes/_tk-master/sidebar-left.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/insuranceland/wp-content/themes/_tk-master/image.php",
+		"/Users/milos/Downloads/_tk-master/includes/bootstrap-wp-navwalker.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/insuranceland/wp-content/themes/_tk-master/includes/bootstrap-wp-navwalker.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/insuranceland/wp-content/themes/_tk-master/sidebar-footer.php",
+		"/Users/milos/Desktop/wordpress/server.js",
+		"/Users/milos/Desktop/wordpress/app/views/pages/main.html.ejs",
+		"/Users/milos/Desktop/wordpress/config/routes.js",
+		"/Users/milos/Desktop/wordpress/shell.sh",
+		"/Users/milos/Desktop/wordpress/app/controllers/api_controller.js",
+		"/Users/milos/Desktop/wordpress/app/controllers/pages_controller.js",
+		"/Users/milos/Desktop/wordpress/config/initializers/02_mongo.js",
+		"/Users/milos/Desktop/share/app/views/inc/header.ejs",
+		"/Users/milos/Desktop/share/config/environments/all.js",
+		"/Users/milos/Desktop/share/config/initializers/02_mongoose.js",
+		"/Users/milos/Desktop/share/config/initializers/03_passport.js",
+		"/Users/milos/Desktop/share/server.js",
+		"/Users/milos/Desktop/share/app/models/account.js",
+		"/Users/milos/Desktop/share/app/views/pages/created.ejs",
+		"/Users/milos/Desktop/share/app/views/pages/main.ejs",
+		"/Users/milos/Desktop/share/app/models/coupon.js",
+		"/Users/milos/Desktop/share/public/application/js/models/coupon.js",
+		"/Users/milos/Desktop/share/public/application/js/config.js",
+		"/Users/milos/Desktop/share/app/views/pages/couponForm.ejs",
+		"/Users/milos/Desktop/share/public/js/config.js",
+		"/Users/milos/Desktop/share/public/css/custom.css",
+		"/Users/milos/Desktop/share/app/views/pages/mobile.ejs",
+		"/Users/milos/Desktop/share-ios/www/index.html",
+		"/Users/milos/Desktop/share/app/controllers/pages_controller.js",
+		"/Users/milos/Desktop/share/config/routes.js",
+		"/Users/milos/Desktop/share-ios/www/config.xml",
+		"/Users/milos/Desktop/share/app/views/pages/builder.ejs",
+		"/Users/milos/Desktop/share/app/controllers/api_controller.js",
+		"/Users/milos/Desktop/share/app/views/inc/footer.ejs",
+		"/Users/milos/Desktop/share/app/controllers/coupons_controller.js",
+		"/Users/milos/Desktop/share/app/controllers/account_controller.js",
+		"/Users/milos/Desktop/share/public/vendors/bootstrap/js/bootstrap-modal.js",
+		"/Users/milos/Desktop/share/app/views/layout/main.ejs",
+		"/Users/milos/Desktop/share/app/views/pages/view.ejs",
+		"/Users/milos/Desktop/share/app/views/pages/creator.js",
+		"/Users/milos/Desktop/share/app/helper/facebookHelper.js",
+		"/Users/milos/Desktop/share/public/application/js/helpers/main.js",
+		"/Users/milos/Desktop/share/public/vendors/flip/js/jquery.quickflip.min.js",
+		"/Users/milos/Desktop/share/public/vendors/qrcode/js/jquery.qrcode.js",
+		"/Users/milos/Desktop/share/app/helper/couponHelper.js",
+		"/Users/milos/Desktop/share/public/application/js/helpers/user.js",
+		"/Users/milos/Desktop/share/public/application/js/app.js",
+		"/Users/milos/Desktop/share/app/helper/userHelper.js",
+		"/Users/milos/Desktop/neoreach/config/environments/all.js",
+		"/Users/milos/Desktop/share-ios/plugins/ios.json",
+		"/Users/milos/Desktop/share-mobi/www/index.html",
+		"/Users/milos/Desktop/share-mobi/www/cordova.js",
+		"/Users/milos/Desktop/share-mobi/www/js/index.js",
+		"/Users/milos/Desktop/share-mobi/www/config.xml",
+		"/Users/milos/Desktop/share/.gitignore",
+		"/Users/milos/Desktop/share/app/helper/logger.js",
+		"/Users/milos/Desktop/neoreach/public/js/init.js",
+		"/Users/milos/Desktop/neoreach/app/controllers/publishers_controller.js",
+		"/Users/milos/Desktop/share/logs/databaseLogs.json",
+		"/Users/milos/Desktop/share/logs/couponLogs.json",
+		"/Users/milos/Desktop/share/package.json",
+		"/Users/milos/Desktop/share/app/controllers/public_controller.js",
+		"/Users/milos/Desktop/share/public/application/js/helpers/coupon.js",
+		"/Users/milos/Desktop/share/Procfile",
+		"/Users/milos/Desktop/share/config/initializers/04_socketio.js",
+		"/Users/milos/Desktop/share/public/application/js/models/main.js",
+		"/Users/milos/Desktop/share/public/application/js/helpers/ajax.js",
+		"/Users/milos/Desktop/share/public/application/js/test/main.js",
+		"/Users/milos/Desktop/share/public/application/js/test/test1.js",
+		"/Users/milos/Desktop/share/public/application/js/test/test.js",
+		"/Users/milos/Desktop/share/public/test/test.js",
+		"/Users/milos/Desktop/share/public/test/main.js",
+		"/Users/milos/Desktop/share/app/views/inc/footer.js",
+		"/Users/milos/Desktop/share/app/views/inc/login.ejs",
+		"/Users/milos/Desktop/share/app/views/coupons/view.ejs",
+		"/Users/milos/Desktop/share/public/coupons/3279ab1697868b74732c4b0756167ed3.png",
+		"/Users/milos/Desktop/share/app/views/pages/index.ejs",
+		"/Users/milos/Desktop/_tk-master/.project",
+		"/Users/milos/Desktop/_tk-master/style.css",
+		"/Users/milos/Desktop/_tk-master/404.php",
+		"/Users/milos/Desktop/_tk-master/archive.php",
+		"/Users/milos/Desktop/_tk-master/comments.php",
+		"/Users/milos/Desktop/_tk-master/content-page.php",
+		"/Users/milos/Desktop/_tk-master/content-single.php",
+		"/Users/milos/Desktop/_tk-master/content.php",
+		"/Users/milos/Desktop/_tk-master/footer.php",
+		"/Users/milos/Desktop/_tk-master/functions.php",
+		"/Users/milos/Desktop/_tk-master/header.php",
+		"/Users/milos/Desktop/_tk-master/image.php",
+		"/Users/milos/Desktop/_tk-master/index.php",
+		"/Users/milos/Desktop/_tk-master/no-results.php",
+		"/Users/milos/Desktop/_tk-master/page.php",
+		"/Users/milos/Desktop/_tk-master/README.md",
+		"/Users/milos/Desktop/_tk-master/rtl.css",
+		"/Users/milos/Desktop/_tk-master/search.php",
+		"/Users/milos/Desktop/_tk-master/searchform.php",
+		"/Users/milos/Desktop/_tk-master/sidebar.php",
+		"/Users/milos/Desktop/_tk-master/single.php",
+		"/Users/milos/Desktop/_tk-master/includes/custom-header.php",
+		"/Users/milos/Desktop/_tk-master/includes/customizer.php",
+		"/Users/milos/Desktop/_tk-master/includes/extras.php",
+		"/Users/milos/Desktop/_tk-master/includes/jetpack.php",
+		"/Users/milos/Desktop/_tk-master/includes/template-tags.php",
+		"/Users/milos/Desktop/_tk-master/includes/css/bootstrap-wp.css",
+		"/Users/milos/Desktop/share/lib/uploader.js",
+		"/Users/milos/Desktop/share/config/initializers/00_generic.js",
+		"/Users/milos/Desktop/hashstatss/index.html",
+		"/Users/milos/Desktop/hashstatss/admin/index.html",
+		"/Users/milos/Desktop/twit/app/controllers/pages_controller.js",
+		"/Users/milos/Desktop/hashstatss/admin/assets/js/avocado-custom.js",
+		"/Users/milos/Desktop/hashstatss/admin/login.html",
+		"/Users/milos/Desktop/hashstatss/login/index.html",
+		"/Users/milos/Desktop/hashtagsemantics/app.js",
+		"/Users/milos/Desktop/twit/config/environments/all.js",
+		"/Users/milos/Desktop/twit/app/views/pages/callback.html.ejs",
+		"/Users/milos/Desktop/twit/config/passport.js",
+		"/Users/milos/Desktop/twit/config/routes.js",
+		"/Users/milos/Desktop/twit/app/views/pages/session.html.ejs",
+		"/Users/milos/Desktop/twit/app/views/pages/main.html.ejs",
+		"/Users/milos/Desktop/hashtagsemantics/routes/index.js",
+		"/Users/milos/Desktop/neoreach/app/views/public/pages/login.html.ejs",
+		"/Users/milos/Desktop/neoreach/config/initializers/03_passport_strategies.js",
+		"/Users/milos/Desktop/neoreach/config/routes.js",
+		"/Users/milos/Desktop/neoreach/app/views/pages/moose.html.ejs"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			"<open folders>",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"arrow",
+			"#menu-secondary li",
+			"11px",
+			"register",
+			"includes",
+			".menu-item li a",
+			"\n</",
+			"motor",
+			"onChange",
+			"js",
+			"select",
+			"vertical",
+			"500",
+			"entry",
+			"min-height",
+			"green",
+			"menu-item",
+			"caret",
+			"dropdown-menu",
+			"sub",
+			"shadow",
+			"main-content",
+			"main-",
+			"main-content",
+			"-80",
+			"border-top",
+			"border-top:5px",
+			"border-top:10px",
+			"margin-top",
+			" widget_nav_menu",
+			"quote",
+			"sidebar",
+			"title",
+			"add",
+			"input",
+			"add-coupon",
+			"name",
+			"text",
+			"delete",
+			"fdelete",
+			"api",
+			"pages",
+			"coupons-",
+			"coupons",
+			"add-c",
+			"documen",
+			"start",
+			"text-",
+			"imageG",
+			"image",
+			"imageG",
+			"image",
+			"coupons",
+			"span4",
+			"files",
+			"fileds",
+			"drop",
+			"docu",
+			"click",
+			"qrcode",
+			"shareCoupon",
+			"apply",
+			"bindShareCoupons",
+			"api",
+			"bindShareCoupons",
+			"share-coupon",
+			"share",
+			"bindCoupons",
+			"overflow",
+			"500",
+			"document",
+			"doucment",
+			"setUID",
+			"set",
+			"setUod",
+			"set",
+			"setUID",
+			"shared",
+			"getShared",
+			"shared",
+			"findArray",
+			"loadUserCoupons",
+			"uid",
+			"height",
+			"cordova.js",
+			"phone",
+			"page",
+			"white",
+			"logg",
+			"cache",
+			"log",
+			"ejs",
+			"window.app",
+			"window",
+			"window.app",
+			"window.images",
+			"window.",
+			"files",
+			"socket",
+			"ss",
+			"socket",
+			"SocketIOFileUploadServer",
+			"imagepicker",
+			"couponModel",
+			"couponsModel",
+			"coupons",
+			"couponModel",
+			"coupon",
+			"couponModel",
+			"req",
+			"e",
+			"requre",
+			".all.",
+			".all(",
+			".all.",
+			".all",
+			".akk",
+			"get",
+			"shared",
+			"find",
+			"loadShared",
+			"loadShred",
+			"loadCoupon",
+			"loadCoupons",
+			"all",
+			"coupons.all",
+			"delete-coupon-",
+			"delete-coupon"
+		],
+		"highlight": false,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"strapfolio",
+			"_bootpress",
+			"HawaiiPress"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": false
+	},
+	"groups":
+	[
+		{
+			"selected": 7,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/Applications/XAMPP/xamppfiles/htdocs/insuranceland/wp-content/themes/_tk-master/home.php",
+					"settings":
+					{
+						"buffer_size": 223,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								150,
+								150
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/Applications/XAMPP/xamppfiles/htdocs/insuranceland/wp-content/themes/_tk-master/content-homepage.php",
+					"settings":
+					{
+						"buffer_size": 1049,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								795,
+								724
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/Applications/XAMPP/xamppfiles/htdocs/insuranceland/wp-content/themes/_tk-master/header.php",
+					"settings":
+					{
+						"buffer_size": 3578,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2373,
+								2373
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/Applications/XAMPP/xamppfiles/htdocs/insuranceland/wp-content/themes/_tk-master/content-page.php",
+					"settings":
+					{
+						"buffer_size": 1187,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								801,
+								801
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/Applications/XAMPP/xamppfiles/htdocs/insuranceland/wp-content/themes/_tk-master/sidebar-left.php",
+					"settings":
+					{
+						"buffer_size": 269,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								269,
+								269
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/Applications/XAMPP/xamppfiles/htdocs/insuranceland/wp-content/themes/_tk-master/footer.php",
+					"settings":
+					{
+						"buffer_size": 2509,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								672,
+								672
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/Applications/XAMPP/xamppfiles/htdocs/insuranceland/wp-content/themes/_tk-master/style.css",
+					"settings":
+					{
+						"buffer_size": 8808,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5571,
+								5571
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2910.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/Applications/XAMPP/xamppfiles/htdocs/insuranceland/wp-content/themes/_tk-master/functions.php",
+					"settings":
+					{
+						"buffer_size": 5076,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1998,
+								1998
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 630.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "/Applications/XAMPP/xamppfiles/htdocs/insuranceland/wp-content/themes/insuranceland/style.css",
+					"settings":
+					{
+						"buffer_size": 8031,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								539,
+								539
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1701.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"",
+				"plugins/ExecutiveShortCodes/index.php"
+			],
+			[
+				"p",
+				"wp-admin/plugins.php"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 252.0,
+	"status_bar_visible": true
+}

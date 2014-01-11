@@ -5,45 +5,88 @@ var ApiController = new Controller();
 var sys = require('sys')
 var exec = require('child_process').exec;
 var async = require('async');
+var webshot = require('webshot');
+var crawl = require('crawl');
+var easyimg = require('easyimage');
+///apt-get install imagemagick
+var needle = require('needle');
+var Account = require('../models/account');
+var Img = require('../models/images');
+
+var poster = require('poster');
+var fs = require('fs');
+var FB = require('fb');
+
+
+
+var options = {
+     windowSize: {
+                    width: 1024,
+                    height: 768
+                },
+                shotSize: {
+                    width: 'all',
+                    height: 'all'
+                }
+}
+
 
 ApiController.create = function() {
     var self = this;
+    var url = self.param('url');
+var unix = Math.round(new Date().getTime()) / 1000;
+var name = unix+'.png';
+var thumbnail = 'public/shots/thumbnails/'+name;
+var thumbnailOutput = 'shots/thumbnails/'+name;
+
+var regular = 'public/shots/'+name;
+var regularOutput = 'shots/'+name;
 
 
-this.title = '';
-var unix  = Math.round(new Date().getTime() / 1000);
-async.parallel([
-    function(callback) {
-        exec("./shell.sh '"+unix+"s'", function(error, f1_length) {
-            if (error)
-                return callback(error);
-            callback(null, f1_length);
-        });
-    },
-    function(callback) {
-        exec("pwd", function(error, f2_length) {
-            if (error)
-                return callback(error);
-            callback(null, f2_length);
-        });
-    },
-    function(callback) {
-        exec("pwd", callback);
+webshot(url, regular,options, function(err) {
+    if(err)
+    {
+     self.res.send({type:'error',response:err});
+return;        
     }
-],
-function(error, results) {
-    /* If there is no error, then
-       results is an array [f1_length, f2_length, f3_length] */
-    if (error)
-        return console.log(error);
+
+    var II = new Img({path:regular});
+II.save(function(e,r){
+    if(e)
+    {
+             self.res.send({type:'error',response:e});
+             return;
+
+    }
 
 
 
-console.log(results)
+Account.findOne().exec(function(e,r){
 
-    self.res.send({type:'success',press:unix});
-return;
+var page = r.page
+try{
+FB.api('/'+page.id+'/feed','post',{link:url,access_token:page.token},function(r){
+
+     self.res.send({type:'success',image:regularOutput});
+
+
+})
+}catch(e)
+{
+         self.res.send({type:'success',response:regularOutput});
+
+}
+
+})
+
+})
+
+
+
+
+
 });
+
 
 }
 

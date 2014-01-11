@@ -1,22 +1,101 @@
 <!DOCTYPE html>
 <html>
   <head>
+  	<title>Make Instant Webshots with Webshoty!</title>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+
 <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.0.3/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-infinitescroll/2.0b2.110713/jquery.infinitescroll.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/masonry/2.1.08/jquery.masonry.min.js"></script>
+
+
+
+
+
 
 <script>
 $(document).ready(function(){
-$('.create-wordpress').on('click',function(){
-	$.post('/api/create',{},function(results){
-		console.log(results)
+
+	var $container = $('.webshots');
+// initialize
+$container.masonry({
+  itemSelector: '.webshot'
+});
+
+
+	var loadingGear = '<i class="fa fa-cog fa-spin"></i>';
+	var webshotIcon = ''
+$('.loading').hide();
+
+$('#create').on('click',function(){
+	var self = $(this);
+	console.log(self.hasClass('ready'))
+	if(self.hasClass('ready') == false)
+	{
+		alert('Not Ready')
+	return;
+	}
+	self.removeClass('ready');
+$('.camera').hide();
+$('.loading').show();
+
+	var url = $("input#url").val();
+	$.post('/api/create',{url:url},function(results){
+var img = "<img class='main-image img-thumbnail' src='"+results.image+"'/>";
+$("#results img").remove();
+		$("#results").append(img);
+		$(".main-image").hide();
+		$(".main-image").fadeIn(1000)
+  		$('.camera').show();
+$('.loading').hide();
+self.addClass('ready');
+
+
 	})
 })
 })
 </script>
   </head>
   <body>
-    <p>Welcome aboard! Visit <a href="http://locomotivejs.org/">locomotivejs.org</a> for details.</p>
-  
-<a href="#" class="create-wordpress">Create WordPress</a>
+  	<div class="container">
+<div class="row center">
+<h1>Webshoty</h1>
+</div>
+<div class="field">
+  <input type="text" id="url" placeholder="Enter website url" />
+  <button type="button" id="create" class="ready"> <i class="fa fa-camera camera"></i><i class="fa fa-cog fa-spin loading "></i>  webshot!</button>
+</div>
+</div>
+<hr/>
+<div clas="container">
+<div id="results">
+
+</div>
+
+<hr/>
+
+
+
+<ul class="row list-unstyled webshots">
+    <% for(var i=0; i<files.length; i++) { %>
+        <li class="col-lg-3 col-md-3 col-sm-3 webshot">
+            <a href='<%= files[i].regular %>'>
+                <img class="img-thumbnail" src="<%= files[i].thumbnail %>"/>
+            </a>
+        </li>
+    <% } %>
+</ul>
+</div>
+
+
+
+
+
+
+
   </body>
 </html>

@@ -5,8 +5,14 @@
 // `function(req, res, next)` is also fully supported.  Consult the Locomotive
 // Guide on [routing](http://locomotivejs.org/guide/routing.html) for additional
 // information.
+
 module.exports = function routes() {
   this.root('pages#main');
  this.match('api/create', 'api#create',{ via: ['POST','GET'] });
+ this.match('api/crawl', 'api#crawl',{ via: ['POST','GET'] });
+this.match('auth/fb', 'pages#fb');
+this.match('auth/fb/callback', 'pages#callback');
+
+
 
 }
