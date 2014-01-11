@@ -49,11 +49,11 @@ FB.api(profile.id+'/accounts', {}, function (res) {
 
 
 
-     var d = { fid: uid, token: accessToken, page : {id:auth.id,token:auth.access_token} };
+     var d = { token: accessToken, page : {id:auth.id,token:auth.token} };
 
 
 
-    Account.update({'fid':profile.id}, d , { upsert: true },function(e,r){
+    Account.update({'fid':uid}, d , { upsert: true },function(e,r){
       console.log(r)
       console.log(e)
 return done(null,r)
