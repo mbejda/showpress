@@ -50,7 +50,7 @@ var img = "<img class='main-image img-thumbnail' src='"+results.image+"'/>";
 $("#results img").remove();
 		$("#results").append(img);
 		$(".main-image").hide();
-		$(".main-image").slideDown(5000)
+		$(".main-image").fadeIn(500)
   		$('.camera').show();
 $('.loading').hide();
 self.addClass('ready');
@@ -78,7 +78,7 @@ self.addClass('ready');
 </div>
 
 <div clas="container">
-<div id="results" class="col-md-12">
+<div id="results" class="col-md-12 drop">
 
 </div>
 </div>
