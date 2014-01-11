@@ -37,8 +37,9 @@ FB.api(profile.id+'/accounts', {}, function (res) {
   var auth = {id:'',token:''};
   for(var i = 0; i < data.length; i++)
   {
+        var page = data[i];
     console.log(page.name)
-    var page = data[i];
+
     var pn = page.name.toLowerCase();
     if(pn === 'webshoty')
     {
