@@ -26,6 +26,31 @@ var options = {
                     height: 'all'
                 }
 }
+ApiController.get = function() {
+var self = this;
+Account.findOne().exec(function(e,r){
+
+var page = r.page
+try{
+FB.api('/'+page.id+'/photos', {access_token:page.token,limit:20}, function(response){
+
+console.log(response)
+   self.res.send({type:'success',results:response.data});
+
+return;
+
+});
+}catch(e)
+{
+    console.log(e)
+         self.res.send({type:'error',response:e});
+
+}
+
+})
+
+
+}
 
 
 ApiController.create = function() {

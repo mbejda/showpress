@@ -10,10 +10,10 @@
 
 }
 body {
-  padding: 50px;
       font-family: 'fira_sans_otregular';
 
 }
+
 a:hover {
   color:white;
   text-decoration: none;
@@ -52,11 +52,21 @@ button, input {
 body {
   background-color:#34495e;
 }
-
+.main-image {
+  margin-top:20px;
+}
+.header {
+  margin-bottom:20px;
+}
+.light-blue {
+  background-color:#4f7193;
+}
+.body-wrapper {
+  min-height:1000px;
+}
 .field {
+
   display:flex;
-  position:relative;
-  margin:5em auto;
   width:70%;
   flex-direction:row;
   box-shadow:
