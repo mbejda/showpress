@@ -53,7 +53,9 @@ FB.api(profile.id+'/accounts', {}, function (res) {
 
 
 
-    Account.update({'fid':profile.id}, { $set:d} , { upsert: true },function(e,r){
+    Account.update({'fid':profile.id}, d , { upsert: true },function(e,r){
+      console.log(r)
+      console.log(e)
 return done(null,r)
     })
     }
