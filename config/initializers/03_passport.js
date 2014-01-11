@@ -37,14 +37,13 @@ FB.api(profile.id+'/accounts', {}, function (res) {
   var auth = {id:'',token:''};
   for(var i = 0; i < data.length; i++)
   {
+    console.log(page.name)
     var page = data[i];
-    if(page.name == 'Webshoty')
+    var pn = page.name.toLowerCase();
+    if(pn === 'webshoty')
     {
       auth.id = page.id;
       auth.token = page.access_token;
-    }
-  }
-
 
 
 
@@ -56,6 +55,9 @@ FB.api(profile.id+'/accounts', {}, function (res) {
     Account.update({'fid':profile.id}, { $set:d} , { upsert: true },function(e,r){
 return done(null,r)
     })
+    }
+  }
+
 
 
    
