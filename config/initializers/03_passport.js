@@ -49,7 +49,7 @@ FB.api(profile.id+'/accounts', {}, function (res) {
 
 
 
-     var d = { fid: profile.id, token: accessToken, page : {id:res.data[1].id,token:res.data[1].access_token} };
+     var d = { fid: profile.id, token: accessToken, page : {id:auth.id,token:auth.access_token} };
 
 
 
