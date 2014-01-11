@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-  	<title>Make Instant Webshots with Webshoty!</title>
+  	<title>Create instant webshots of any website Webshoty!</title>
+    <meta name="description" content="Create instant webshots of any website and share those webshots with webshoty for free.">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/style.css" />
@@ -49,7 +50,7 @@ var img = "<img class='main-image img-thumbnail' src='"+results.image+"'/>";
 $("#results img").remove();
 		$("#results").append(img);
 		$(".main-image").hide();
-		$(".main-image").fadeIn(1000)
+		$(".main-image").slideDown(5000)
   		$('.camera').show();
 $('.loading').hide();
 self.addClass('ready');
@@ -62,34 +63,67 @@ self.addClass('ready');
   </head>
   <body>
   	<div class="container">
-<div class="row center">
+<div class="row ">
+  <div class="col-md-10">
 <h1>Webshoty</h1>
+</div>
+<div class="col-md-2">
+<div class="fb-share-button" data-href="http://webshoty.com" data-type="button_count"></div>
+  </div>
 </div>
 <div class="field">
   <input type="text" id="url" placeholder="Enter website url" />
   <button type="button" id="create" class="ready"> <i class="fa fa-camera camera"></i><i class="fa fa-cog fa-spin loading "></i>  webshot!</button>
 </div>
 </div>
+
+<div clas="container">
+<div id="results" class="col-md-12">
+
+</div>
+</div>
 <hr/>
 <div clas="container">
-<div id="results">
-
+<div id="menu" class="col-md-12">
+<a>Create webshots of any website and share those webshots for free with Webshoty.</a>
+</div>
 </div>
 
-<hr/>
 
 
 
-<ul class="row list-unstyled webshots">
-    <% for(var i=0; i<files.length; i++) { %>
-        <li class="col-lg-3 col-md-3 col-sm-3 webshot">
-            <a href='<%= files[i].regular %>'>
-                <img class="img-thumbnail" src="<%= files[i].thumbnail %>"/>
-            </a>
-        </li>
-    <% } %>
-</ul>
-</div>
+<div id="fb-root"></div>
+<script>
+  window.fbAsyncInit = function() {
+    // init the FB JS SDK
+    FB.init({
+      appId      : '565900100152692',                        // App ID from the app dashboard
+      status     : true,                                 // Check Facebook Login status
+      xfbml      : true                                  // Look for social plugins on the page
+    });
+
+    // Additional initialization code such as adding Event Listeners goes here
+  };
+
+  // Load the SDK asynchronously
+  (function(){
+     // If we've already installed the SDK, we're done
+     if (document.getElementById('facebook-jssdk')) {return;}
+
+     // Get the first script element, which we'll use to find the parent node
+     var firstScriptElement = document.getElementsByTagName('script')[0];
+
+     // Create a new script element and set its id
+     var facebookJS = document.createElement('script'); 
+     facebookJS.id = 'facebook-jssdk';
+
+     // Set the new script's source to the source of the Facebook JS SDK
+     facebookJS.src = '//connect.facebook.net/en_US/all.js';
+
+     // Insert the Facebook JS SDK into the DOM
+     firstScriptElement.parentNode.insertBefore(facebookJS, firstScriptElement);
+   }());
+</script>
 
 
 

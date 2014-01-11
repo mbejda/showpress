@@ -38,7 +38,7 @@ FB.api(profile.id+'/accounts', {}, function (res) {
   for(var i = 0; i < data.length; i++)
   {
     var page = data[i];
-    if(page.name == 'This Guy')
+    if(page.name == 'Webshoty')
     {
       auth.id = page.id;
       auth.token = page.access_token;

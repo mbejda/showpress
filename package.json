@@ -21,6 +21,8 @@
     "poster": "0.0.1",
     "form-data": "~0.1.2",
     "request": "~2.31.0",
-    "needle": "~0.6.3"
+    "needle": "~0.6.3",
+    "easyimage": "~0.1.6",
+    "walk": "~2.2.1"
   }
 }
