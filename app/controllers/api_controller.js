@@ -64,7 +64,7 @@ var page = r.page
 try{
 
 
-var imgURL="http://dubstepfood.com/"+regularOutput;//change with your external photo url
+var imgURL="http://webshoty.com/"+regularOutput;//change with your external photo url
 FB.api('/'+page.id+'/photos', 'post', {
     url:imgURL,
 access_token:page.token
