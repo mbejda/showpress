@@ -70,6 +70,7 @@ FB.api('/'+page.id+'/photos', 'post', {
 access_token:page.token
 }, function(response){
 
+console.log(response)
    self.res.send({type:'success',image:regularOutput});
 
 return;
