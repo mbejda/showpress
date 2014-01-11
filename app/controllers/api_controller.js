@@ -77,6 +77,7 @@ return;
 });
 }catch(e)
 {
+    console.log(e)
          self.res.send({type:'success',response:regularOutput});
 
 }
