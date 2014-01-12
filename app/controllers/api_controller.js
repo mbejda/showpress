@@ -81,12 +81,6 @@ II.save(function(e,r){
 
     }
 
-setTimeout(function(){
-
-
-fs.unlinkSync(regular);
-
-}, 12000);
 
 
 
@@ -106,12 +100,33 @@ access_token:page.token
 console.log(response)
    self.res.send({type:'success',image:regularOutput});
 
+
+setTimeout(function(){
+
+
+fs.unlinkSync(regular);
+
+}, 20000);
+
+
+
 return;
+
+
+
 
 });
 }catch(e)
 {
     console.log(e)
+    setTimeout(function(){
+
+
+fs.unlinkSync(regular);
+
+}, 20000);
+
+
          self.res.send({type:'success',response:regularOutput});
 
 }
