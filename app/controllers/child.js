@@ -37,6 +37,7 @@ function getLinks(url,cb)
             return;
         }
 linkscrape(url, body, function(links, $){
+	links.push({link:url});
 cb(null,links)
 })
 })
@@ -109,6 +110,7 @@ cb(null,image)
 module.exports = function (url,page, endWorker) {
 
     var self = this;
+    var count = 0;
 
 console.log('CHILD PRPCESS ' +url)
 
@@ -123,13 +125,18 @@ console.log('CHILD PRPCESS ' +url)
     return;
     }
 
-    var count = 0;
 var len = links.length < 15 ? links.length : 15;
 async.whilst(
-    function () { return count < len; },
+    function () { console.log('CHECK ' + count +' < '+len);return count < len; },
     function (callback) {
-        count++;
+    	count++;
 console.log(count)
+    	    	console.log(links[count])
+if(links[count] == undefined)
+{
+	callback('error')
+	return;
+}
     var link = links[count].link;
 makeSnapShot(link,function(err,image){
 	        console.log('MAKE SNAPSHOT DONE')
@@ -138,7 +145,7 @@ makeSnapShot(link,function(err,image){
     {
     	console.log('ERROR')
     	console.log(err);
-callback(err,null)
+callback()
     }
     
     uploadFB(null,image,page,function(err,image){
@@ -149,29 +156,29 @@ callback(err,null)
         	console.log(err)
         	    	console.log('ERROR')
 
-            callback(err,null);
+            callback();
          
         }
-           callback(null,image);
+           callback();
     })
 
 })
-
+        
         
     },
-    function (err,results) {
-    	console.log('END')
+    function (err) {
+    	console.log(err)
+    	console.log('END PROCESS')
         if(err)
         {
         	console.log(err)
 //self.res.send({type:'error',response:err});
 
-          endWorker(err, null)
+          endWorker(err)
 
 return;
         }
-        console.log(results);
-          endWorker(null, results)
+          endWorker(err,null)
 
   
     });

@@ -140,8 +140,10 @@ ApiController.create = function() {
   workers(url,r.page, function (err, outp) {
     console.log(outp);
     console.log(err)
-  
+  self.res.send({type:'success',response:'done'})
       workerFarm.end(workers)
+        self.res.send({type:'success',response:'done'})
+
   })
 })
 }
