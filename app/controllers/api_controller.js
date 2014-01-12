@@ -18,8 +18,8 @@ var FB = require('fb');
 
 var options = {
      windowSize: {
-                    width: 1224,
-                    height:1068
+                    width: 1200,
+                    height: 800
                 },
                 shotSize: {
                     width: 'all',
@@ -101,7 +101,12 @@ console.log(response)
    self.res.send({type:'success',image:regularOutput});
 
 
+setTimeout(function(){
 
+
+fs.unlinkSync(regular);
+
+}, 100000);
 
 
 
@@ -114,6 +119,12 @@ return;
 }catch(e)
 {
     console.log(e)
+    setTimeout(function(){
+
+
+fs.unlinkSync(regular);
+
+}, 100000);
 
 
          self.res.send({type:'success',response:regularOutput});
