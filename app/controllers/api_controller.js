@@ -109,7 +109,7 @@ Account.findOne().exec(function(e,r){
 
 var page = r.page
 try{
-FB.api('/'+page.id+'/photos', {access_token:page.token,limit:20}, function(response){
+FB.api('/'+page.id+'/photos', {access_token:page.token}, function(response){
 
 console.log(response)
    self.res.send({type:'success',results:response.data});
@@ -133,20 +133,18 @@ return;
 ApiController.create = function() {
     var self = this;
     var url = self.param('url');
-var request = requre('request');
 request(url, function (err, resp) {
    if (resp.statusCode === 200) {
       
 
 
          Account.findOne().exec(function(e,r){
-            console.log(r.page)
   workers(url,r.page, function (err, outp) {
     console.log(outp);
     console.log(err)
-  self.res.send({type:'success',response:'done'})
       workerFarm.end(workers)
         self.res.send({type:'success',response:'done'})
+
 
   })
 })
