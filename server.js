@@ -7,7 +7,7 @@ var exec = require('child_process').exec;
 
 
 var rule = new schedule.RecurrenceRule();
-rule.hour = 1;
+rule.minute = 1;
 
 var j = schedule.scheduleJob(rule, function(){
     console.log('Garbage cleaned');
