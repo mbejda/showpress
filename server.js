@@ -1,3 +1,28 @@
+var schedule = require('node-schedule');
+
+var sys = require('sys')
+var exec = require('child_process').exec;
+
+
+
+
+var rule = new schedule.RecurrenceRule();
+rule.second = 5;
+
+var j = schedule.scheduleJob(rule, function(){
+    console.log('Garbage cleaned');
+
+    function puts(error, stdout, stderr) { sys.puts(stdout) }
+exec("cd public/shots && rm -rf ./*", puts);
+
+
+});
+
+
+
+
+
+
 var locomotive = require('locomotive'),
         env = process.env.NODE_ENV || 'development',
         port = process.env.PORT || 3000,
@@ -10,3 +35,4 @@ locomotive.boot(__dirname, env, function(err, server) {
       console.log('listening on %s:%d', addr.address, addr.port);
     });
 });
+
