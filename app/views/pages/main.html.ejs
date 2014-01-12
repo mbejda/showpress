@@ -46,11 +46,7 @@ $('.loading').show();
 
 	var url = $("input#url").val();
 	$.post('/api/create',{url:url},function(results){
-var img = "<img class='main-image img-thumbnail' src='"+results.image+"'/>";
-$("#results img").remove();
-		$("#results").append(img);
-		$(".main-image").hide();
-		$(".main-image").fadeIn(500)
+
   		$('.camera').show();
 $('.loading').hide();
 self.addClass('ready');
@@ -82,8 +78,10 @@ self.addClass('ready');
 <div class="light-blue body-wrapper">
 <div class="container">
     <div class="row">
-<div id="results" class="col-md-12 drop">
-
+<div id="results" class="col-md-12 drop" style="margin-top:50px">
+<a href="https://www.facebook.com/webshoty">Your website screenshots can be viewed and downloaded from our facebook 
+| Click Here
+</a>
 </div>
 </div>
 </div>
