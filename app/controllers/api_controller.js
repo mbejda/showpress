@@ -15,7 +15,6 @@ var FB = require('fb');
 var linkscrape = require('linkscrape');
 var request = require('request');
 var workerFarm = require('worker-farm')
-  , workers    = workerFarm(require.resolve('./child'));
 
 
 var options = {
@@ -135,8 +134,7 @@ ApiController.create = function() {
     var url = self.param('url');
 request(url, function (err, resp) {
    if (resp.statusCode === 200) {
-      
-
+         var workers =  workerFarm(require.resolve('./child')); 
 
          Account.findOne().exec(function(e,r){
   workers(url,r.page, function (err, outp) {
