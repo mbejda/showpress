@@ -81,6 +81,14 @@ II.save(function(e,r){
 
     }
 
+setTimeout(function(){
+
+
+fs.unlinkSync(regular);
+
+}, 12000);
+
+
 
 
 Account.findOne().exec(function(e,r){
@@ -111,12 +119,10 @@ return;
 })
 
 })
-
-
-
-
-
 });
+
+
+
 
 
 }
