@@ -140,9 +140,8 @@ makeSnapShot(link,function(err,image){
     	console.log(err);
 callback(err,null)
     }
-    var domain = url.parse(link);
-    console.log(domain);
-    uploadFB(domain,image,page,function(err,image){
+    
+    uploadFB(null,image,page,function(err,image){
         console.log('UPLAOD FB DONE')
 
         if(err)
