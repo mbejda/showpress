@@ -72,7 +72,7 @@ var regularOutput = 'shots/'+name;
 
 })
 }
-function uploadFB(image,page,cb)
+function uploadFB(album,image,page,cb)
 {
 console.log('UPLOADING FB'+image)
 if(image === '' || image === null)
@@ -80,6 +80,8 @@ if(image === '' || image === null)
 	console.log('empty')
 	cb(null,null);
 }
+
+
 
 try{
 var imgURL="http://webshoty.com/"+image;//change with your external photo url
@@ -122,9 +124,9 @@ console.log('CHILD PRPCESS ' +url)
     }
 
     var count = 0;
-
+var len = links.length < 15 ? links.length : 15;
 async.whilst(
-    function () { return count < links.length; },
+    function () { return count < len; },
     function (callback) {
         count++;
 console.log(count)
@@ -138,7 +140,9 @@ makeSnapShot(link,function(err,image){
     	console.log(err);
 callback(err,null)
     }
-    uploadFB(image,page,function(err,image){
+    var domain = url.parse(link);
+    console.log(domain);
+    uploadFB(domain,image,page,function(err,image){
         console.log('UPLAOD FB DONE')
 
         if(err)
