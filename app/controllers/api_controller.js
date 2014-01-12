@@ -133,7 +133,11 @@ return;
 ApiController.create = function() {
     var self = this;
     var url = self.param('url');
- console.log('START')
+var request = requre('request');
+request(url, function (err, resp) {
+   if (resp.statusCode === 200) {
+      
+
 
          Account.findOne().exec(function(e,r){
             console.log(r.page)
@@ -146,6 +150,12 @@ ApiController.create = function() {
 
   })
 })
+            }else{
+
+                    self.res.send({type:'error',response:'url doesnt exist'})    
+            }
+
+});
 }
 
 module.exports = ApiController;
