@@ -106,7 +106,7 @@ setTimeout(function(){
 
 fs.unlinkSync(regular);
 
-}, 20000);
+}, 100000);
 
 
 
@@ -124,7 +124,7 @@ return;
 
 fs.unlinkSync(regular);
 
-}, 20000);
+}, 100000);
 
 
          self.res.send({type:'success',response:regularOutput});
