@@ -59,9 +59,9 @@ var regular = 'public/shots/'+name;
 var regularOutput = 'shots/'+name;
 
 
-    webshot(url, regularOutput,options, function(err) {
+    webshot(url, regular,regular, function(err) {
     	console.log(err)
-    	console.log('snap shot made '+regularOutput)
+    	console.log('snap shot made '+regular)
     if(err)
     {
     // self.res.send({type:'error',response:err});
