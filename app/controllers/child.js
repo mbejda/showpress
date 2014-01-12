@@ -15,9 +15,6 @@ var FB = require('fb');
 var linkscrape = require('linkscrape');
 var request = require('request');
 var workerFarm = require('worker-farm')
-  , workers    = workerFarm(require.resolve('./child'));
-
-
 var options = {
      windowSize: {
                     width: 1200,
@@ -31,7 +28,7 @@ var options = {
 
 function getLinks(url,cb)
 {
-    console.log(url)
+ 
     request(url, function(err, resp, body){
         if(err)
         {
@@ -47,8 +44,13 @@ cb(null,links)
 
 function makeSnapShot(url,cb)
 {
-    console.log(url)
-    console.log('HERE')
+		console.log('MAKING SNAPSHOT '+url)
+
+if(url == '' || url == undefined)
+{
+	cb(null,null);
+	return;
+}
 var unix = Math.round(new Date().getTime()) / 1000;
 var name = unix+'.png';
 var thumbnail = 'public/shots/thumbnails/'+name;
@@ -58,6 +60,8 @@ var regularOutput = 'shots/'+name;
 
 
     webshot(url, regular,options, function(err) {
+    	console.log(err)
+    	console.log('snap shot made '+regular)
     if(err)
     {
     // self.res.send({type:'error',response:err});
@@ -68,16 +72,15 @@ var regularOutput = 'shots/'+name;
 
 })
 }
-function uploadFB(image,cb)
+function uploadFB(image,page,cb)
 {
+console.log('UPLOADING FB'+image)
+if(image === '' || image === null)
+{
+	console.log('empty')
+	cb(null,null);
+}
 
-    Account.findOne().exec(function(e,r){
-        if(e)
-        {
-            cb(e,null)
-            return;
-        }
-var page = r.page
 try{
 var imgURL="http://webshoty.com/"+image;//change with your external photo url
 FB.api('/'+page.id+'/photos', 'post', {
@@ -87,62 +90,96 @@ access_token:page.token
 
 console.log(response)
 cb(null,image)
-return;
 });
 }catch(e)
 {
-    console.log(e)
 
+    console.log(e)
+console.log('HERE')
 cb(null,image)
-return;
         // self.res.send({type:'success',response:regularOutput});
 }
-})
 }
 
 
 
 
-ApiController.get = function() {
-var self = this;
-Account.findOne().exec(function(e,r){
+module.exports = function (url,page, endWorker) {
 
-var page = r.page
-try{
-FB.api('/'+page.id+'/photos', {access_token:page.token,limit:20}, function(response){
+    var self = this;
 
-console.log(response)
-   self.res.send({type:'success',results:response.data});
+console.log('CHILD PRPCESS ' +url)
+
+
+
+
+
+ getLinks(url,function(e,links){
+    if(e)
+    {
+  endWorker(e);
+    return;
+    }
+
+    var count = 0;
+
+async.whilst(
+    function () { return count < links.length; },
+    function (callback) {
+        count++;
+console.log(count)
+    var link = links[count].link;
+makeSnapShot(link,function(err,image){
+	        console.log('MAKE SNAPSHOT DONE')
+
+    if(err)
+    {
+    	console.log('ERROR')
+    	console.log(err);
+callback(err,null)
+    }
+    uploadFB(image,page,function(err,image){
+        console.log('UPLAOD FB DONE')
+
+        if(err)
+        {
+        	console.log(err)
+        	    	console.log('ERROR')
+
+            callback(err,null);
+         
+        }
+           callback(null,image);
+    })
+
+})
+
+        
+    },
+    function (err,results) {
+    	console.log('END')
+        if(err)
+        {
+        	console.log(err)
+//self.res.send({type:'error',response:err});
+
+          endWorker(err, null)
 
 return;
+        }
+        console.log(results);
+          endWorker(null, results)
 
-});
-}catch(e)
-{
-    console.log(e)
-         self.res.send({type:'error',response:e});
-
-}
-
-})
-
-
-}
-
-
-ApiController.create = function() {
-    var self = this;
-    var url = self.param('url');
- console.log('START')
-
-         Account.findOne().exec(function(e,r){
-            console.log(r.page)
-  workers(url,r.page, function (err, outp) {
-    console.log(outp)
   
-      workerFarm.end(workers)
+    });
   })
-})
-}
 
-module.exports = ApiController;
+
+
+
+
+
+
+
+
+}

@@ -25,6 +25,9 @@
     "easyimage": "~0.1.6",
     "walk": "~2.2.1",
     "webshot": "~0.8.2",
-    "node-schedule": "~0.1.13"
+    "node-schedule": "~0.1.13",
+    "cheerio": "~0.13.1",
+    "linkscrape": "~0.1.0",
+    "worker-farm": "~0.3.1"
   }
 }
