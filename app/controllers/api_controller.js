@@ -138,7 +138,8 @@ ApiController.create = function() {
          Account.findOne().exec(function(e,r){
             console.log(r.page)
   workers(url,r.page, function (err, outp) {
-    console.log(outp)
+    console.log(outp);
+    console.log(err)
   
       workerFarm.end(workers)
   })
