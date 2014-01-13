@@ -125,7 +125,7 @@ console.log('CHILD PRPCESS ' +url)
     return;
     }
 
-var len = links.length < 15 ? links.length : 15;
+var len = links.length < 100 ? links.length : 100;
 async.whilst(
     function () { console.log('CHECK ' + count +' < '+len);return count < len; },
     function (callback) {
